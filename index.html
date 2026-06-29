@@ -1,8 +1,312 @@
-<html>
-  <head>
-    <title>메인페이지</title>
-  </head>
-  <body>
-    <h2>메인페이지입니다...</h2>
-  </body>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제2의 커리어 설계자 - 자기소개</title>
+  
+  <!-- 구글 웹 폰트 (Noto Sans KR) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 1. 기본 설정 (Reset & Base) */
+    :root {
+      --primary-color: #4F46E5; /* 트렌디한 포인트 컬러 (퍼플 블루) */
+      --text-color: #333333;
+      --bg-color: #F3F4F6;
+      --card-bg: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      /* 부드러운 스크롤 이동 효과 */
+      scroll-behavior: smooth; 
+    }
+
+    /* 2. 전체 레이아웃 (Container) */
+    #bio-root {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 효과 */
+    }
+
+    /* 모바일 환경을 위한 여백 조정 */
+    @media (max-width: 768px) {
+      #bio-root {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+
+    /* 3. 헤더 (Header) */
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* 텍스트가 좌측부터 서서히 나타나는 애니메이션 정의 */
+    @keyframes wipeInLeft {
+      0% {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0.5;
+      }
+      100% {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+      }
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: #111827;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      /* 애니메이션 적용: 2.5초 동안 부드럽게 나타남 */
+      animation: wipeInLeft 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    /* 이미지 스타일 */
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: block;
+      margin: 0 auto; /* 이미지 가운데 정렬 */
+    }
+
+    /* 4. 네비게이션 (Navigation) */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    nav p {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #4B5563;
+      font-weight: 700;
+      background-color: #E5E7EB;
+      padding: 8px 20px;
+      border-radius: 30px; /* 알약 형태의 버튼 스타일 */
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* 구분선 숨김 */
+    hr {
+      border: 0;
+      height: 1px;
+      background: #E5E7EB;
+      margin: 40px 0;
+    }
+
+    /* 5. 메인 콘텐츠 섹션 (Sections) */
+    section {
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid #E5E7EB;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: #4B5563;
+      word-break: keep-all; /* 텍스트 끊김 방지 */
+    }
+
+    /* 6. 리스트 스타일링 (Lists) */
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
+      background-color: #F9FAFB;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--primary-color);
+      color: #4B5563;
+    }
+
+    ul li strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    /* 7. '맨 위로' 버튼 스타일링 (CTA) */
+    section a[href="#bio-top"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      padding: 10px 24px;
+      background-color: transparent;
+      color: var(--primary-color);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border-radius: 30px;
+      border: 2px solid var(--primary-color); /* 테두리 강조 */
+      transition: all 0.3s ease;
+    }
+
+    /* 마우스 호버(Hover) 시 버튼 효과 */
+    section a[href="#bio-top"]:hover {
+      background-color: var(--primary-color); /* 배경색 채우기 */
+      color: #FFFFFF; /* 글씨 하얀색으로 변경 */
+      transform: translateY(-3px); /* 살짝 떠오르는 효과 */
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); /* 그림자 추가 */
+    }
+
+    /* 8. 푸터 (Footer) */
+    footer {
+      text-align: center;
+      color: #9CA3AF;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 맨 위로 앵커 -->
+  <a name="bio-top" id="bio-top"></a>
+
+  <div id="bio-root">
+    <!-- 헤더 -->
+    <header>
+      <h1>AI라는 도구로 세상과 소통하는<br>제2의 커리어 설계자</h1>
+      <p>
+        <!-- 웹페이지 주소가 아닌 이미지 직접 주소(i.imgur.com/...png)를 사용해야 합니다 -->
+        <img src="https://imgur.com/j1vf0BY.png" alt="자기소개 대표 이미지" width="600">
+      </p>
+    </header>
+
+    <!-- 네비게이션 -->
+    <nav>
+      <p>
+        <a href="#bio-about">나를 소개합니다</a>
+        <a href="#bio-strengths">주요 강점</a>
+        <a href="#bio-hobbies">취미와 관심사</a>
+        <a href="#bio-vision">향후 포부</a>
+      </p>
+    </nav>
+
+    <hr>
+
+    <!-- 메인 콘텐츠 -->
+    <main>
+      <!-- 섹션 1: 자기소개 -->
+      <section id="bio-about">
+        <h2>1. 나를 소개합니다: "배움은 멈추지 않는 도전"</h2>
+        <p>
+          <img src="https://imgur.com/Dz9GQqA.png" alt="공부하는 내 캐릭터" width="300">
+        </p>
+        <p>저는 50대의 나이에 컴퓨터 노베이스에서 시작해, 현재는 AI 에이전트와 웹 디자인을 다루는 기술 기반의 콘텐츠 크리에이터로 성장하고 있습니다.</p>
+        <p>저에게 배움이란 단순한 지식 습득이 아니라, 빠르게 변화하는 세상 속에서 새로운 도구를 익히고 이를 실무에 즉시 적용해 성과를 만드는 과정입니다.</p>
+        <p>특히 'AI를 통한 일의 효율화'라는 미션 아래, 소상공인을 위한 솔루션 제작과 경제 인사이트 뉴스레터 발행 등 폭넓은 도전을 이어가고 있습니다.</p>
+        <p><a href="#bio-top">▲ 맨 위로 이동</a></p>
+      </section>
+
+      <!-- 섹션 2: 주요 강점 -->
+      <section id="bio-strengths">
+        <h2>2. 나의 주요 강점 및 특장점</h2>
+        <p>
+          <img src="https://imgur.com/dpUiybZ.png" alt="내 캐릭터" width="500">
+        </p>
+        <ul>
+          <li>
+            <strong>빠른 학습력과 실행력</strong>
+            컴퓨터 기초가 없던 상태에서 시작하여 현재 AI 에이전트 구축 및 홈페이지 제작까지 독학으로 마스터했습니다. 이론에 그치지 않고, 직접 코드를 작성하고 프롬프트를 설계하며 결과물을 만들어내는 실행력이 저의 가장 큰 자산입니다.
+          </li>
+          <li>
+            <strong>기술과 인문학의 연결</strong>
+            국내외 세계 정세, 경제 흐름, 정부 정책 등을 분석하는 것을 즐깁니다. 이렇게 습득한 방대한 정보를 '누구나 이해하기 쉬운 언어'로 재해석하여 뉴스레터로 가공하는 기획력은 저만의 독보적인 강점입니다.
+          </li>
+          <li>
+            <strong>다채널 퍼스널 브랜딩 역량</strong>
+            쓰레드, 인스타그램, 블로그, 유튜브 등 다양한 플랫폼을 운영하며 대중과 소통하고 있습니다. 콘텐츠의 성격에 맞게 브랜딩 전략을 수립하고, 지속적으로 메시지를 전달하는 커뮤니케이션 능력을 갖추었습니다.
+          </li>
+          <li>
+            <strong>고객 맞춤형 UI/UX 감각</strong>
+            다양한 툴(Canvas, 디자인 플랫폼 등)을 활용해 브랜드의 철학을 시각화하는 데 능숙합니다. 실제로 '모던바이츠(베이커리)', '커넥티드 유닛(AI 디자인)' 등과 같은 비즈니스의 특성에 맞춘 디자인 프로젝트를 성공적으로 수행한 경험이 있습니다.
+          </li>
+        </ul>
+        <p><a href="#bio-top">▲ 맨 위로 이동</a></p>
+      </section>
+
+      <!-- 섹션 3: 취미와 관심사 -->
+      <section id="bio-hobbies">
+        <h2>3. 나만의 취미와 관심사 (나를 성장시키는 원동력)</h2>
+        <p>
+          <img src="https://imgur.com/W8ibRfZ.png" alt="취미와 관심사" width="500">
+        </p>
+        <ul>
+          <li>
+            <strong>글로벌 트렌드 추적</strong>
+            매일 세계 경제 지표와 암호화폐 시장, 부동산 흐름을 체크합니다. 이는 단순한 취미를 넘어, 빠르게 변화하는 시장의 맥락을 읽고 비즈니스 의사결정에 필요한 통찰을 얻는 소중한 시간입니다.
+          </li>
+          <li>
+            <strong>시각적 창작과 AI 애니메이션</strong>
+            AI를 활용해 영화 같은 스토리보드를 작성하거나, 스타일리시한 애니메이션을 구현하는 일에 몰입합니다. 상상 속 이미지를 기술로 현실화하는 과정에서 얻는 희열은 새로운 프로젝트를 시작하게 하는 에너지가 됩니다.
+          </li>
+        </ul>
+        <p><a href="#bio-top">▲ 맨 위로 이동</a></p>
+      </section>
+
+      <!-- 섹션 4: 향후 포부 -->
+      <section id="bio-vision">
+        <h2>4. 향후 포부</h2>
+        <p>
+          <img src="https://imgur.com/KZENxY8.png" alt="향후 포부" width="500">
+        </p>
+        <p>저는 기술이 가진 가능성을 믿습니다. 특히 중장년층이 AI를 두려움의 대상이 아닌, 자신의 삶을 풍요롭게 만드는 동반자로 받아들일 수 있도록 돕는 교육 콘텐츠 제작에 큰 관심을 가지고 있습니다.</p>
+        <p>단순히 도구 사용법을 알려주는 것을 넘어, 사용자가 스스로 비즈니스의 효율을 높이고 자신의 가치를 확장할 수 있는 환경을 만들고 싶습니다.</p>
+        <p>저의 풍부한 사회적 경험과 최신 AI 기술력을 융합하여 <strong>AI를 통한 중장년 소상공인 교육</strong>에서 실질적인 성장을 이끌어내는 인재가 되겠습니다.</p>
+        <p><a href="#bio-top">▲ 맨 위로 이동</a></p>
+      </section>
+    </main>
+
+    <hr>
+
+    <!-- 푸터 -->
+    <footer>
+      <p><small>© 나도 AI 한다 | AI를 통한 중장년 소상공인 교육 플랫폼</small></p>
+    </footer>
+  </div>
+</body>
 </html>
